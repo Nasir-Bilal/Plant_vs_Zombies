@@ -31,10 +31,10 @@ public:
 
         // Choose zombie type based on random number
         if (randomZombie == 0) {
-            zArray[zCount - 1] = new simpleZ(1110, 130 + pRow * 109);
+            zArray[zCount - 1] = new simpleZ(1110, 7 + pRow * 109);
         }
         else {
-            zArray[zCount - 1] = new bucketZ(1110, 130 + pRow * 109);
+            zArray[zCount - 1] = new bucketZ(1110, 11 + pRow * 109);
         }
 
 
@@ -90,6 +90,30 @@ public:
        
         return true;
 
+    }
+
+    void deleteZombie()
+    {
+
+        //this function need some adjustments yet
+        if(zArray)
+        {
+
+            for (int i = 0; i < zCount; i++)
+            {
+                if (zArray[i]->life <= 0)
+                {
+                    delete zArray[i];
+                    zCount--;
+                    for (int j = i; j < zCount; j++)
+                    {
+                        zArray[j] = zArray[j + 1];
+                    }
+                  
+
+                }
+            }
+        }
     }
 
 };

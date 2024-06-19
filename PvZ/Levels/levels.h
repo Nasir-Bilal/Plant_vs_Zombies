@@ -115,11 +115,15 @@ public:
 		zFactory.spawnZombie(window);
 		movementCollsion();
 		
-		pFactory.accessUniqueBehaviors(sFactory, window);
+		pFactory.accessUniqueBehaviors(sFactory, window,zFactory);
 
 	}
 	void movementCollsion()
 	{
+		//collision of pea and zombies
+	//	pFactory.peaHelpFun1(zFactory);
+		zFactory.deleteZombie();
+
 		if (zFactory.clockSimpleZforMove.getElapsedTime().asMilliseconds() < 50)
 			return;
 

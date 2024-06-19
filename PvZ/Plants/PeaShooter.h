@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <ctime>
+#include "../Zombies/zombieFactory.h"
 using namespace sf;
 using namespace std;
 
@@ -16,6 +17,8 @@ public:
     Pea pea;
     Clock shooting;
     int x, y;
+    Clock healthClock;
+    //this clocks helps to avoid disruption in reducing life
 public:
     PeaShooter(int r, int c) :Plant(c, r)
     {
@@ -60,6 +63,9 @@ public:
     void shootPea() {
       
         //x and y coordinates have been interchanged
+        if (shooting.getElapsedTime().asSeconds() < 1.5f) return;
+        
+        shooting.restart();
         pea.shoot(coord.y, coord.x);
     }
 
@@ -72,4 +78,32 @@ public:
       
         pea.draw(window);
     }
+
+    void peaCollison(zombieFactory& zFactory)
+    {
+        for (int i =0 ; i < zFactory.zCount; i++)
+        {
+          
+
+            if (pea.peaPosition.x >= zFactory.zArray[i]->getX()
+                && pea.peaPosition.x <= zFactory.zArray[i]->getX()+30
+                && pea.peaPosition.y>= zFactory.zArray[i]->getY()
+                && pea.peaPosition.y <= zFactory.zArray[i]->getYBottom())
+            { 
+                if (healthClock.getElapsedTime().asSeconds() < 0.7f)
+                    return;
+                healthClock.restart();
+                pea.exists = false; //deleting pea
+                zFactory.zArray[i]->reducehealth();
+                
+              
+
+            }
+
+        }
+
+
+
+    }
+     
 };
