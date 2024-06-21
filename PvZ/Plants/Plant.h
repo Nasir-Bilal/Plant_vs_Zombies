@@ -23,7 +23,7 @@ public:
 	coordinats coord;
 
 public:
-	Plant(int c,int r) :coord(c,r), plantSourceRect(0, 0, 90, 110), currentHealth(1000)
+	Plant(int c,int r) :coord(c,r), plantSourceRect(0, 0, 90, 110), currentHealth(100)
 	{ }
 	virtual void displayAndUpdateAnimation() = 0;
 

@@ -56,12 +56,14 @@ public:
         for (int i = 0; i < zCount; i++)
         {
             zArray[i]->animation();
-            zArray[i]->sprite.setPosition(zArray[i]->positionZ.x, zArray[i]->positionZ.y);
-            //rectangle.setPosition(188 + (92 * i), 130 + (109 * i)); 
+           
+            
+            zArray[i]->sprite.setPosition(zArray[i]->positionZ.x, zArray[i]->positionZ.y-20);
+            rectangle.setPosition(zArray[i]->positionZ.x, zArray[i]->positionZ.y); 
+            zArray[i]->sprite.setScale(0.9f, 0.9f);
             window.draw(zArray[i]->sprite);
-            //window.draw(rectangle);
-            zArray[i]->sprite.setPosition(zArray[i]->positionZ.x, zArray[i]->positionZ.y);
-            window.draw(zArray[i]->sprite);
+            window.draw(rectangle);
+         
 
         }
 

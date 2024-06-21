@@ -139,9 +139,9 @@ public:
 				yPos = zFactory.zArray[i]->positionZ.y;
 
 
-				xcell = ((xPos - 188) / 92) - 1;
+				xcell = ((xPos - 188) / 92) ;
 				ycell = ((yPos - 130) / 109);
-				if (pzGrid.oGrid[(yPos - 130) / 109][(xPos - 188) / 92 - 1].plantId == 1 || pzGrid.oGrid[(yPos - 130) / 109][(xPos - 188) / 92 - 1].plantId == 2)
+				if (pzGrid.oGrid[(yPos - 130) / 109][(xPos - 188) / 92].plantId == 1 || pzGrid.oGrid[(yPos - 130) / 109][(xPos - 188) / 92 ].plantId == 2)
 				{
 					cout << "xcell" << xcell << endl;
 					cout << "ycell" << ycell << endl;
@@ -156,8 +156,9 @@ public:
 						zFactory.zArray[i]->positionZ.x += 3;
 
 
-					zFactory.zArray[i]->texture.loadFromFile("../SFML/Images/zombieAttack.png");
-					zFactory.zArray[i]->sprite.setTexture(zFactory.zArray[i]->texture);
+					//zFactory.zArray[i]->texture.loadFromFile("../SFML/Images/zombieAttack.png");
+					//zFactory.zArray[i]->sprite.setTexture(zFactory.zArray[i]->texture);
+					zFactory.zArray[i]->changeTexture(1); //sets to attack
 					//health
 					if (pFactory.plants[ycell][xcell]->currentHealth > 0)
 						pFactory.plants[ycell][xcell]->currentHealth -= 1;
@@ -169,7 +170,8 @@ public:
 						delete pFactory.plants[ycell][xcell];
 						pFactory.plants[ycell][xcell] = nullptr;
 						pzGrid.oGrid[ycell][xcell].plantId = 0;
-						zFactory.zArray[i]->texture.loadFromFile("../SFML/Images/za.png");
+						//zFactory.zArray[i]->texture.loadFromFile("../SFML/Images/za.png"); 
+						zFactory.zArray[i]->changeTexture(0); //reset to walk
 					}
 
 

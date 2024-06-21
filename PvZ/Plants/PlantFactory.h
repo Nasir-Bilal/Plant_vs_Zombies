@@ -63,6 +63,7 @@ public:
                 if (plants[i][j] != nullptr)
                 {
                     plants[i][j]->displayAndUpdateAnimation();
+                    plants[i][j]->plantSprite.setScale(0.8f, 0.8f);
                     window.draw(plants[i][j]->plantSprite);
                 }
             }
