@@ -19,7 +19,7 @@ private:
 public:
 	Level1()
 	{
-		myShop.makePanels(2);
+		myShop.makePanels(4);
 	}
 	virtual void update(sf::Event& event) override
 	{
