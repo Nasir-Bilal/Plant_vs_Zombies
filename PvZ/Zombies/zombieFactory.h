@@ -55,7 +55,7 @@ public:
 
         for (int i = 0; i < zCount; i++)
         {
-            zArray[i]->animation(window);
+            zArray[i]->animation();
            
             
             zArray[i]->sprite.setPosition(zArray[i]->positionZ.x, zArray[i]->positionZ.y-20);

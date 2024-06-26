@@ -16,6 +16,7 @@ public:
     Pea() : peaPosition(0,0), exists(false) {
         if (!texture.loadFromFile("pea.png")) {
             // Handle error (texture loading failed)
+            cout << "not loaded!!!" << endl;
         }
 
         sprite.setTexture(texture);

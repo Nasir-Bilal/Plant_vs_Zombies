@@ -22,7 +22,7 @@ public:
 
 	}
 
-	void animation(RenderWindow& window)
+	void animation()
 	{
 		if (animationClock.getElapsedTime().asMilliseconds() > 230)
 		{

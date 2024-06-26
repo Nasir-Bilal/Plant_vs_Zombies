@@ -80,27 +80,9 @@
     <ClInclude Include="Zombies\zombies.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Levels\level2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Elements\RepeaterPanel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Elements\SnowPeaPanel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Zombies\zombieAttack.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Elements\ball.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Elements\buckethead.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Elements\pea.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
