@@ -28,12 +28,15 @@ public:
     Sprite sprite;
     position positionZ;
     Clock animationClock;
+
+    bool head;
+    bool isEating;
     
     Zombie(int x, int y,int life, int speed, int damage): positionZ(x,y), life(life),speed(speed), damage(damage) {}
     virtual ~Zombie() {}
     virtual void animation()=0; //pure virtual function
     virtual void changeTexture (int number) {}
-
+    virtual  void refreshAnimation() {};
     //getters
     int getX() const { return positionZ.x; }
     int getY() const { return positionZ.y; }

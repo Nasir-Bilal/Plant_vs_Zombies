@@ -156,7 +156,15 @@ public:
 
 					//zFactory.zArray[i]->texture.loadFromFile("../SFML/Images/zombieAttack.png");
 					//zFactory.zArray[i]->sprite.setTexture(zFactory.zArray[i]->texture);
-					zFactory.zArray[i]->changeTexture(1); //sets to attack
+					zFactory.zArray[i]->isEating = true; //sets to attack
+					if(zFactory.zArray[i]->life <=6)
+						zFactory.zArray[i]->changeTexture(3); //sets to attack with no head
+					else 
+						zFactory.zArray[i]->changeTexture(1); //sets to attack
+
+					
+					
+
 					//health
 					if (pFactory.plants[ycell][xcell]->currentHealth > 0)
 						pFactory.plants[ycell][xcell]->currentHealth -= 1;
@@ -170,6 +178,8 @@ public:
 						pzGrid.oGrid[ycell][xcell].plantId = 0;
 						//zFactory.zArray[i]->texture.loadFromFile("../SFML/Images/za.png"); 
 						zFactory.zArray[i]->changeTexture(0); //reset to walk
+						zFactory.zArray[i]->isEating = false; //sets to attack
+
 					}
 
 

@@ -70,6 +70,9 @@ public:
     }
     void updatePosition(position& positionZ, int speed)
     {
+
+       
+
         if (positionZ.x >= 188 && positionZ.y >= 130)
         {
             if (speed == 1)
@@ -103,6 +106,7 @@ public:
 
             for (int i = 0; i < zCount; i++)
             {
+                zArray[i]->refreshAnimation();
                 if (zArray[i]->life <= 0)
                 {
                     delete zArray[i];
@@ -111,9 +115,8 @@ public:
                     {
                         zArray[j] = zArray[j + 1];
                     }
-                  
-
                 }
+                
             }
         }
     }
