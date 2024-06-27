@@ -31,8 +31,15 @@ public:
 
     bool head;
     bool isEating;
+    bool isDead;
+
+    position temp;
     
-    Zombie(int x, int y,int life, int speed, int damage): positionZ(x,y), life(life),speed(speed), damage(damage) {}
+    Zombie(int x, int y,int life, int speed, int damage): positionZ(x,y), life(life),speed(speed),
+        damage(damage) , temp(0,0)
+    {
+
+    }
     virtual ~Zombie() {}
     virtual void animation(RenderWindow& window)=0; //pure virtual function
     virtual void changeTexture (int number) {}
@@ -45,7 +52,17 @@ public:
 
     void reducehealth()
     {
-        life -= 2;
+        if (life > 2)
+        {
+            life -= 2;
+           
+        }
+        else
+        {
+            isDead = true;
+           
+        }
+
 
      }
 

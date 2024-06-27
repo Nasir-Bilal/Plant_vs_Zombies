@@ -132,7 +132,8 @@ public:
 		if (zFactory.zArray != nullptr)
 			for (int i = 0; i < zFactory.zCount; i++)
 			{
-				zFactory.updatePosition(zFactory.zArray[i]->positionZ, zFactory.zArray[i]->speed);
+				
+				zFactory.updatePosition(zFactory.zArray[i]->positionZ, zFactory.zArray[i]->speed, zFactory.zArray[i]->isDead);
 				xPos = zFactory.zArray[i]->positionZ.x;
 				yPos = zFactory.zArray[i]->positionZ.y;
 
@@ -147,7 +148,7 @@ public:
 
 
 					//different speed for different zombies
-					if (zFactory.zArray[i]->speed == 1)
+					if (zFactory.zArray[i]->speed == 1 )
 						zFactory.zArray[i]->positionZ.x += 2;
 
 					if (zFactory.zArray[i]->speed == 2)

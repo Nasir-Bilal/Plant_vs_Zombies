@@ -1,5 +1,4 @@
 
-
 	#pragma once
 	#include <SFML/Graphics.hpp>
 	#include <iostream>
@@ -15,12 +14,22 @@
 
 		Sprite headSprite;
 		Texture headTexture;
+		Clock headClock;
 		int headCounter;
 		bool headFall;
+
+		Sprite deadSprite;
+		Texture deadTexture;
+		Clock deadClock;
+		int deadCounter;
+		
 
 		string headFallstr = "../SFML/Images/zombies/simple/headFall.png";
 		string noHeadWalk = "../SFML/Images/zombies/simple/noHeadWalk.png";
 		string noHeadEat ="../SFML/Images/zombies/simple/noHeadEat.png";
+		string eat = "../SFML/Images/zombies/simple/Eat.png";
+		string walk= "../SFML/Images/zombies/simple/walk.png";
+		string dead= "../SFML/Images/zombies/simple/die.png";
 
 
 	public:
@@ -28,13 +37,16 @@
 		{
 
 			head = true;
-			life = 10;
+			life = 12;
 			isEating = false;
 			textureIndex = 0;
 			headFall = false;
 			headCounter = 0;
+			isDead = false;
 
-			texturePath = "../SFML/Images/zombies/simple/walk.png";
+			
+
+			texturePath = walk;
 			//setting the initial texture to walking zombie
 			if (!texture.loadFromFile(texturePath))
 			{
@@ -52,7 +64,16 @@
 			headSprite.setTexture(headTexture);
 			headSprite.setTextureRect(sf::IntRect(0, 0, 150, 186));
 
+			// Loading dead sprite
+			if (!deadTexture.loadFromFile(dead))
+			{
+				cout << "Error loading dead sprite texture" << endl;
+			}
+			deadSprite.setTexture(deadTexture);
+			deadSprite.setTextureRect(sf::IntRect(0, 0, 150, 186)); // Adjust the rectangle size according to your sprite's dimensions
 
+			
+			int deadCounter = 0; // Initialize to 0
 
 		}
 
@@ -61,40 +82,50 @@
 			textureIndex = number;
 		
 
-				if (textureIndex == 0)
+				if (textureIndex == 0) //walk
 				{
 					tempTexturePath = texturePath;
-					texturePath = "../SFML/Images/zombies/simple/walk.png";
+					texturePath = walk;
 
-				}
-				else if (textureIndex == 1)
+				} 
+				else if (textureIndex == 1) //eat and no head eat
 				{
 					tempTexturePath = texturePath;
-					texturePath = life>=6 ? noHeadEat : noHeadWalk;
+					texturePath = life >= 6 ? eat : (isDead?dead:noHeadEat);
+
 
 				
 
 					if (texturePath == noHeadEat)
 						textureIndex = 3;
-					else
+					else if (texturePath == eat)
 						textureIndex = 1;
+					else
+						textureIndex = 4;
+
 					//just to avoid the rippling of textures otherwise both textures
 					//start loading 
 				}
-				else if (textureIndex == 2)
+				else if (textureIndex == 2) //no head walk
 				{
 					tempTexturePath = texturePath;
-					texturePath = "../SFML/Images/zombies/simple/noHeadWalk.png";
+					texturePath = noHeadWalk;
 
 				}
-				else if (textureIndex == 3)
+				else if (textureIndex == 3) //no head eat
 				{
 					tempTexturePath = texturePath;
-					texturePath = "../SFML/Images/zombies/simple/noHeadEat.png";
+					texturePath = noHeadEat;
 
 				}
+				else if (textureIndex == 4)
+				{
+					tempTexturePath = texturePath;
+					texturePath = dead;
+				}
 
-				if(tempTexturePath != texturePath)
+
+				if(tempTexturePath != texturePath) //to prevent loading textures if already loaded
 				{
 					if (!texture.loadFromFile(texturePath))
 					{
@@ -102,6 +133,8 @@
 					}
 					sprite.setTexture(texture);
 					sprite.setTextureRect(sf::IntRect(0, 0, 166, 144));
+					animationCounter = 0;
+					
 					tempTexturePath = texturePath;
 
 					cout << endl << endl << "##############################" << texturePath
@@ -113,17 +146,23 @@
 					}
 
 					//if any head fall sprite is loaded then headfall turns true;
-					if (!headFall && (texturePath == noHeadEat || texturePath == noHeadWalk))
+					if (!headFall )//&& (texturePath == noHeadEat || texturePath == noHeadWalk))
 					{
-						headFall = true;
-						headSprite.setPosition(positionZ.x, positionZ.y);
-					}
+						if(texturePath == noHeadWalk)
+						{
+							headFall = true;
 
-					
+							headSprite.setPosition(positionZ.x + 49, positionZ.y + 11);
+						}
+						else if (life>6 && texturePath == noHeadEat)
+						{
+							headFall = true;
+
+							headSprite.setPosition(positionZ.x + 49, positionZ.y + 11);
+						}
+						//49 and 11 are the calculated values to adjust the position of head	
+					}				
 				}
-
-		
-	
 		}
 
 	
@@ -132,18 +171,24 @@
 
 		//general logic to change the frame
 		void changeFrame(int timeLimit, int totalFrames, int width, int height,
-			int& animationCounter ,Sprite& sprite)
+			int& animationCounter ,Sprite& sprite , Clock& animationClock)
 		{
 			if (animationClock.getElapsedTime().asMilliseconds() > timeLimit)
 			{
 				animationCounter++;
 				if (animationCounter >= totalFrames-1)
 				{
-					if (timeLimit == 180)
+					if (timeLimit == 180) //only deals the falling head
 					{
 						headFall = false;
 						animationCounter=0;
 			
+					}
+					else if (timeLimit == 170)
+					{
+						life = -1;
+						animationCounter = 0;
+						
 					}
 					else
 						animationCounter = 0;
@@ -158,33 +203,44 @@
 		void animation(RenderWindow& window)
 		{
 			if (textureIndex == 0) //walk
-				changeFrame(200, 22, 166, 144,animationCounter,sprite);
+				changeFrame(200, 22, 166, 144,animationCounter,sprite, animationClock);
 			else if (textureIndex == 1) //attack
-				changeFrame(200, 21, 166, 144, animationCounter, sprite);
+				changeFrame(200, 21, 166, 144, animationCounter, sprite, animationClock);
 			else if (textureIndex == 2) //no head
-				changeFrame(200, 18, 166, 144, animationCounter, sprite);
+				changeFrame(200, 18, 166, 144, animationCounter, sprite, animationClock);
 			else if (textureIndex == 3) //no head
-				changeFrame(200, 11, 166, 144, animationCounter, sprite);
+				changeFrame(200, 11, 166, 144, animationCounter, sprite, animationClock);
+			else if ( textureIndex == 4)
+				changeFrame(170, 10, 166, 144, animationCounter, sprite, animationClock);
 
 
 			//running animation for headFall
 
 			if (headFall)
 			{
-				changeFrame(180, 12, 150, 186, headCounter,headSprite);
-				
+				changeFrame(180, 12, 150, 186, headCounter,headSprite, headClock);
 				headSprite.setScale(0.9f, 0.9f);
 				window.draw(headSprite);
 				cout << "headbeing drawn";
 			}
+			
 			
 		}
 
 		//being called in delete zombie class
 		void refreshAnimation()
 		{
+
+
+
 			//if life is less then 6 then change texture to no head eat
-			if (life <= 6 && isEating)
+
+			if (isDead)
+			{
+				changeTexture(4); //dead
+			}
+
+			else if (life <= 6 && isEating)
 			{
 				changeTexture(3);  // no head attack
 			}

@@ -68,12 +68,12 @@ public:
         }
 
     }
-    void updatePosition(position& positionZ, int speed)
+    void updatePosition(position& positionZ, int speed, bool isDead)
     {
 
        
 
-        if (positionZ.x >= 188 && positionZ.y >= 130)
+        if (positionZ.x >= 188 && positionZ.y >= 130 &&!isDead )
         {
             if (speed == 1)
                 positionZ.x -= 2;
