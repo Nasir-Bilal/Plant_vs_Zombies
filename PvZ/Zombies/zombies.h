@@ -34,7 +34,7 @@ public:
     
     Zombie(int x, int y,int life, int speed, int damage): positionZ(x,y), life(life),speed(speed), damage(damage) {}
     virtual ~Zombie() {}
-    virtual void animation()=0; //pure virtual function
+    virtual void animation(RenderWindow& window)=0; //pure virtual function
     virtual void changeTexture (int number) {}
     virtual  void refreshAnimation() {};
     //getters
