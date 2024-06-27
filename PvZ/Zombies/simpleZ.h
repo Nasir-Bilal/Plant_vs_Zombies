@@ -85,7 +85,13 @@
 				if (textureIndex == 0) //walk
 				{
 					tempTexturePath = texturePath;
-					texturePath = walk;
+					texturePath = life > 6 ? walk : noHeadWalk;
+
+					if (texturePath == walk)
+						textureIndex = 0;
+					else
+						textureIndex = 2;
+					
 
 				} 
 				else if (textureIndex == 1) //eat and no head eat
@@ -135,8 +141,7 @@
 					sprite.setTextureRect(sf::IntRect(0, 0, 166, 144));
 					animationCounter = 0;
 					
-					tempTexturePath = texturePath;
-
+				
 					cout << endl << endl << "##############################" << texturePath
 						<< "##############################" << endl << endl;
 
@@ -148,19 +153,23 @@
 					//if any head fall sprite is loaded then headfall turns true;
 					if (!headFall )//&& (texturePath == noHeadEat || texturePath == noHeadWalk))
 					{
-						if(texturePath == noHeadWalk)
+						if(tempTexturePath == walk && texturePath == noHeadWalk)
 						{
 							headFall = true;
 
 							headSprite.setPosition(positionZ.x + 49, positionZ.y + 11);
 						}
-						else if (life>6 && texturePath == noHeadEat)
+						else if (tempTexturePath==eat && texturePath == noHeadEat)
 						{
 							headFall = true;
 
 							headSprite.setPosition(positionZ.x + 49, positionZ.y + 11);
 						}
-						//49 and 11 are the calculated values to adjust the position of head	
+
+						//49 and 11 are the calculated values to adjust the position of head
+						// 
+						tempTexturePath = texturePath;
+
 					}				
 				}
 		}
