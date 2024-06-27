@@ -11,7 +11,7 @@ class SnowPea :public Plant {
 private:
     //PeaNode* head = nullptr;
 public:
-    SnowPea(int r, int c) : Plant(c, r)
+    SnowPea(int r, int c, int id) :Plant(c, r, id)
     {
         if (!plantImage.loadFromFile("../SFML/Images/Spritesheets/snowpea.png")) {
             // Error handling: unable to load image

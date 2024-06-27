@@ -80,8 +80,12 @@ public:
 
 		int plantId = myShop.clickPlants(mouseClick) + 1;
 		cout << "Plant Id: " << plantId << endl;
-		pzGrid.addPlant(gridX, gridY, plantId);
-		pFactory.createPlant(gridX, gridY, plantId);
+		//cout << "Currency: " << sFactory.sunCurrency << endl;
+		if (pFactory.createPlant(gridX, gridY, plantId, sFactory.sunCurrency))
+		{
+			sFactory.updateCurrencyText();
+			pzGrid.addPlant(gridX, gridY, plantId);
+		}
 		//pFactory.accessUniqueBehaviors(sFactory);
 	}
 	void createZombie(Clock& zGeneratClock)
@@ -109,6 +113,8 @@ public:
 		pFactory.renderPlants(window);
 		//suns
 		sFactory.renderSuns(window);
+		//currency
+		sFactory.renderCurrency(window);
 		//zombies
 		zFactory.spawnZombie(window);
 		movementCollsion();
@@ -160,7 +166,7 @@ public:
 					//health
 					if (pFactory.plants[ycell][xcell]->currentHealth > 0)
 						pFactory.plants[ycell][xcell]->currentHealth -= 1;
-					cout << "current Health: " << pFactory.plants[ycell][xcell]->currentHealth << endl;
+					//cout << "current Health: " << pFactory.plants[ycell][xcell]->currentHealth << endl;
 					if (pFactory.plants[ycell][xcell]->currentHealth == 0)
 					{
 
@@ -189,7 +195,7 @@ public:
 		pzGrid.displayPlant();
 		cout << "Display function exited. " << endl;
 	}
-	virtual void update(sf::Event& event) = 0;
+	virtual void update(sf::Event& event, sf::RenderWindow& window) = 0;
 	SunFactory getSunFactory() const
 	{
 		return sFactory;

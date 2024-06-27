@@ -75,6 +75,5 @@ public:
 				return id;
 			}
 		}
-		return 0;
 	}
 };

@@ -45,6 +45,12 @@ public:
         life -= 2;
 
      }
+    int getRowIndex()
+    {
+        int baseY = 130;
+        int rowHeight = 109;
+        return (positionZ.y - baseY) / rowHeight;
+    }
 
 };
 

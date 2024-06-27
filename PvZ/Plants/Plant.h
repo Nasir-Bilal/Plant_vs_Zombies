@@ -21,10 +21,10 @@ public:
 	int currentHealth; // keep track of health left
 	int lifePlant; // total health?
 	coordinats coord;
-
+	int plantId;
 public:
-	Plant(int c,int r) :coord(c,r), plantSourceRect(0, 0, 90, 110), currentHealth(100)
-	{ }
+	Plant(int c, int r, int id) :coord(c, r), plantSourceRect(0, 0, 90, 110), currentHealth(100),
+		plantId(id) { }
 	virtual void displayAndUpdateAnimation() = 0;
 
 };

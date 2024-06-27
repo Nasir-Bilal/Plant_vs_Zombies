@@ -21,7 +21,7 @@ public:
 	{
 		myShop.makePanels(4);
 	}
-	virtual void update(sf::Event& event) override
+	virtual void update(sf::Event& event, sf::RenderWindow& window override
 	{
 		if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
 		{

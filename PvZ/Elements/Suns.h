@@ -40,7 +40,7 @@ public:
 		position.y = std::rand() % 490 + 110;//y axis
 		currentY = 0;
 
-		std::cout << "Sun: (" << position.x << ", " << position.y << std::endl;
+		//std::cout << "Sun: (" << position.x << ", " << position.y << std::endl;
 		sunSprite.setOrigin(0, 0);
 		sunSprite.setPosition(position.x, currentY);
 
@@ -79,7 +79,6 @@ public:
 
 		// Check if the mouse coordinates are within the bounds of the sprite
 		if (spriteBounds.contains(worldMouseX, worldMouseY)) {
-			std::cout << "returning true;" << std::endl;
 			return true; // Sun is clicked
 		}
 
@@ -91,12 +90,6 @@ public:
 	}
 	void dropSun()
 	{
-		/*while (currentY < position.y)
-		{
-			currentY += 5;
-		}
-		sunSprite.setPosition(position.x, currentY);*/
-
 		if (isDropping)
 		{
 			// Move the sun downwards

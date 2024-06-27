@@ -9,9 +9,9 @@
 
 class Repeater :public Plant {
 private:
-    //PeaNode* head = nullptr;
+
 public:
-    Repeater(int r, int c) : Plant(c, r)
+    Repeater(int r, int c, int id) :Plant(c, r, id)
     {
         if (!plantImage.loadFromFile("../SFML/Images/Spritesheets/repeater.png")) {
             // Error handling: unable to load image
@@ -45,11 +45,6 @@ public:
     }
     ~Repeater()
     {
-        /*PeaNode* current = head;
-        while (current != nullptr) {
-            PeaNode* toDelete = current;
-            current = current->next;
-            delete toDelete;
-        }*/
+
     }
 };

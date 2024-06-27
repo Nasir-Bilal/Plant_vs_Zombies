@@ -20,7 +20,7 @@ public:
     Clock healthClock;
     //this clocks helps to avoid disruption in reducing life
 public:
-    PeaShooter(int r, int c) :Plant(c, r)
+    PeaShooter(int r, int c, int id) :Plant(c, r, id)
     {
         if (!plantImage.loadFromFile("../SFML/Images/Spritesheets/Peashooter.png")) {
             // Error handling: unable to load image
@@ -95,7 +95,8 @@ public:
                 healthClock.restart();
                 pea.exists = false; //deleting pea
                 zFactory.zArray[i]->reducehealth();
-                
+                cout << "ZLife: " << zFactory.zArray[i]->life << endl;
+
               
 
             }

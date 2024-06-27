@@ -88,7 +88,7 @@ public:
 					
 					mouse.x = event.mouseButton.x;
 					mouse.y = event.mouseButton.y;
-					cout << "(" << mouse.x << ',' << mouse.y << ')' << endl;
+					//cout << "(" << mouse.x << ',' << mouse.y << ')' << endl;
 				}
 				//will probably add this in update function
 				if (menuState == 1)
@@ -193,7 +193,7 @@ public:
 		}
 		if (levelNum && menuState == MenuState::LevelSelection)
 		{
-			levelNum->update(event);
+			levelNum->update(event,window);
 			levelNum->updateGrid(event, window);
 		}
 	}

@@ -21,7 +21,7 @@ public:
 	{
 		myShop.makePanels(2);
 	}
-	virtual void update(sf::Event& event) override
+	virtual void update(sf::Event& event,sf::RenderWindow& window) override
 	{
 		if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
 		{
@@ -43,18 +43,19 @@ public:
 		{
 			mouse.x = event.mouseButton.x;// event.mouseButton.x; 
 			mouse.y = event.mouseButton.y;//event.mouseButton.y;
-			cout << "(" << mouse.x << ',' << mouse.y << ')' << endl;
+			//cout << "(" << mouse.x << ',' << mouse.y << ')' << endl;
 
 			if ((mouse.x >= 230 && mouse.x <= 1109) && (mouse.y >= 130 && mouse.y <= 680))
 			{
 				boxClicked.x = ((mouse.x) - 280.0) / 92.0;
 				boxClicked.y = (mouse.y - 130) / 110;
 
-				cout << "BOX  of grid clicked (" << boxClicked.x << ',' << boxClicked.y << ')' << endl;
+				//cout << "BOX  of grid clicked (" << boxClicked.x << ',' << boxClicked.y << ')' << endl;
 				gridClicked = true;
 
 			}
 		}
+		pFactory.accessUniqueBehaviors(sFactory, window, zFactory);
 	}
 	virtual void updateGrid(sf::Event& event, sf::RenderWindow& window)
 	{
@@ -77,7 +78,7 @@ public:
 		sFactory.dropAllSuns();
 		if (pFactory.plantCount)
 		{
-			update(event);
+			update(event, window);
 		}
 	}
 };

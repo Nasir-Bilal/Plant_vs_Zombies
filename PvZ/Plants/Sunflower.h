@@ -15,7 +15,7 @@ public:
     sf::Clock makeSunClock;
     SunFactory& sunFactory;
 public:
-    SunFlower(int c, int r, SunFactory& sf) : Plant(c, r), sunFactory(sf)
+    SunFlower(int c, int r, SunFactory& sf, int id) :Plant(c, r, id), sunFactory(sf)
     {
         if (!plantImage.loadFromFile("../SFML/Images/Spritesheets/sunflower.png")) {
             // Error handling: unable to load image

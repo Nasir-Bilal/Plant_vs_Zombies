@@ -17,14 +17,37 @@ struct sunNode {
 };
 
 class SunFactory {
-private:
+public:
+	sf::Font font;
+	sf::Text text;
+	sf::RectangleShape background;
+	sf::FloatRect textBounds;
+	std::string currencyString;
+
 	sunNode* startSun;
 	int sunCount;
 	int sunCurrency;
 	sf::Clock createClock;
 
 public:
-	SunFactory() : startSun(nullptr), sunCount(0), sunCurrency(50) {}
+	SunFactory() : startSun(nullptr), sunCount(0), sunCurrency(50) 
+	{
+		if (!font.loadFromFile("../SFML/Fonts/SamdanEvil.ttf")) {
+			// Handle error
+			std::cerr << "Error loading font" << std::endl;
+			return;
+		}
+
+		updateCurrencyText();
+		text.setFont(font);
+		text.setCharacterSize(24);
+		text.setFillColor(sf::Color::Black);
+		text.setPosition(30, 58);
+
+		// Create a background rectangle for the text
+		background.setFillColor(sf::Color(245, 245, 220)); // Beige color
+		updateBackground();
+	}
 	~SunFactory() {
 		deleteAllSuns(); // Cleaning up
 	}
@@ -169,6 +192,7 @@ public:
 					current = previous->nextSun; // Move to the next node
 				}
 				sunCurrency += 25;
+				updateCurrencyText();
 			}
 			else
 			{
@@ -177,5 +201,22 @@ public:
 			}
 		}
 	}
-
+	void updateCurrencyText()
+	{
+		text.setString(std::to_string(sunCurrency));
+		updateBackground();
+	}
+	void updateBackground() 
+	{
+		sf::FloatRect textBounds = text.getLocalBounds();
+		float paddingX = 20; // Horizontal padding
+		float paddingY = 1; // Vertical padding
+		background.setSize(sf::Vector2f(textBounds.width + paddingX * 2, textBounds.height + paddingY * 2)); // Add horizontal padding on both sides
+		background.setPosition(text.getPosition().x + textBounds.left - paddingX, text.getPosition().y + textBounds.top - paddingY);
+	}
+	void renderCurrency(sf::RenderWindow& window)
+	{
+		window.draw(background);
+		window.draw(text);
+	}
 };

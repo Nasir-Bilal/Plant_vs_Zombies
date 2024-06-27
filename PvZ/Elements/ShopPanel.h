@@ -27,8 +27,8 @@ public:
 	bool isClicked(coordinats mouse) 
 	{
 		//mouse click within panel
-		std::cout << "Panel position: (" << x << ", " << y << "), size: (" << width << ", " << height << ")" << std::endl;
-		std::cout << "Mouse position: (" << mouse.x << ", " << mouse.y << ")" << std::endl;
+		//std::cout << "Panel position: (" << x << ", " << y << "), size: (" << width << ", " << height << ")" << std::endl;
+		//std::cout << "Mouse position: (" << mouse.x << ", " << mouse.y << ")" << std::endl;
 
 		
 		if (mouse.x >= x && mouse.x <= x + width && mouse.y >= y && mouse.y <= y + height) 
